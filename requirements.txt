@@ -4,3 +4,5 @@ numpy
 scikit-learn
 matplotlib
 graphviz
+openpyxl
+xlrd==1.2.0
