@@ -191,10 +191,28 @@ st.write(f"➡️ Train : Test = {int((1 - test_size) * 100)} : {int(test_size *
 y_encoded, label_encoder = encode_target(y)
 
 # split using only numeric processed features
-X_train, X_test, y_train, y_test = make_train_test_split(
+# split using only numeric processed features
+X_train, X_test, y_train, y_test, split_error = make_train_test_split(
     X_processed, y_encoded, test_size=test_size
 )
 
+if split_error is not None:
+    st.error("⚠️ Could not create a train–test split with the current settings.")
+    st.write(
+        "This usually happens when some classes in the target column have very few rows.\n\n"
+        "**Details:**"
+    )
+    st.code(split_error)
+
+    st.info(
+        "💡 Try one of these:\n"
+        "- Choose a different target column\n"
+        "- Reduce the test size (e.g., 10–20%)\n"
+        "- Remove very rare classes from the dataset before uploading"
+    )
+    st.stop()
+
+# save into session_state for next steps
 st.session_state.X_train = X_train
 st.session_state.X_test = X_test
 st.session_state.y_train = y_train
