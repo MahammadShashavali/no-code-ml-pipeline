@@ -41,4 +41,5 @@ no_code_ml_pipeline/
 
 # How to run it
 pip install -r requirements.txt
+
 streamlit run app.py
